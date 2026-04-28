@@ -6,7 +6,7 @@ function HeroEditorial({ onCTA }) {
         <div className="pc-hero-masthead-rule">
           <span>Vol. VII · No. 04</span>
           <span>Privacat Insights<span className="pc-dot">.</span></span>
-          <span>Utrecht · Est. 2018</span>
+          <span>Utrecht · Est. 2026</span>
         </div>
         <div className="pc-hero-eyebrow">CAREY LENING · OPTIMISTIC CONTRARIAN</div>
         <h1 className="pc-hero-title">
