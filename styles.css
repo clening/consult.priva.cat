@@ -1,0 +1,388 @@
+/* =============================================================
+   PRIVACAT INSIGHTS — Marketing Site
+   Layered on top of ../colors_and_type.css and ../ui_kits/web/styles.css
+   ============================================================= */
+
+/* ---------- Tweakable surface ---------- */
+:root {
+  --site-accent: var(--pc-red);
+  --site-accent-deep: var(--pc-red-deep);
+  --site-density: 1;
+  --site-radius: 4px;
+}
+
+/* Apply density to section padding */
+.pc-section { padding: calc(120px * var(--site-density)) 32px; }
+.pc-hero { padding: calc(160px * var(--site-density)) 32px calc(96px * var(--site-density)); }
+
+/* When tweak overrides accent, propagate to key uses */
+.pc-section-title .pc-dot,
+.pc-hero-title .pc-hero-dot,
+.pc-nav-logo .pc-dot,
+.pc-footer-mark .pc-dot { color: var(--site-accent); }
+.pc-eyebrow,
+.pc-eyebrow--red { color: var(--site-accent); }
+.pc-nav-link.is-active { color: var(--site-accent); border-bottom-color: var(--site-accent); }
+.pc-footer-links a:hover { color: var(--site-accent); }
+
+/* Apply radius variable */
+.pc-btn,
+.pc-service,
+.pc-newsletter-card,
+.pc-topic-tag { border-radius: var(--site-radius); }
+
+/* ============================================================
+   VARIANT SWITCHER (top-of-page chrome shown only in dev)
+   ============================================================ */
+.site-variant-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  background: var(--pc-ink);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 0;
+  font-family: var(--pc-font-mono);
+}
+.site-variant-bar button {
+  background: transparent;
+  border: 0;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  color: var(--pc-ash-light);
+  font: 500 11px/1 var(--pc-font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  cursor: pointer;
+  transition: color 120ms var(--pc-ease), background 120ms var(--pc-ease);
+}
+.site-variant-bar button:first-child { border-left: 1px solid rgba(255,255,255,0.1); }
+.site-variant-bar button:hover { color: var(--pc-paper); }
+.site-variant-bar button.is-active {
+  color: var(--pc-paper);
+  background: var(--site-accent);
+}
+.site-variant-bar .site-variant-label {
+  color: var(--pc-ash);
+  padding: 12px 22px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+/* Push everything down to clear the variant bar */
+body.has-variant-bar { padding-top: 36px; }
+body.has-variant-bar .pc-nav { top: 36px; }
+
+/* ============================================================
+   VARIANT B — Editorial masthead hero
+   Bold, centered display type. Newspaper-front-page energy.
+   ============================================================ */
+.pc-hero--editorial {
+  background: var(--pc-paper);
+  color: var(--pc-ink);
+  min-height: auto;
+  padding-top: calc(140px * var(--site-density));
+  padding-bottom: 0;
+}
+.pc-hero--editorial .pc-hero-inner {
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+}
+.pc-hero--editorial .pc-hero-masthead-rule {
+  width: 100%;
+  border-top: 4px solid var(--pc-ink);
+  border-bottom: 1px solid var(--pc-ink);
+  padding: 8px 0;
+  margin-bottom: 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pc-ink-soft);
+}
+.pc-hero--editorial .pc-hero-masthead-rule span:nth-child(2) {
+  color: var(--site-accent);
+  font-weight: 700;
+}
+.pc-hero--editorial .pc-hero-eyebrow {
+  justify-content: center;
+  color: var(--site-accent);
+  margin-bottom: 24px;
+}
+.pc-hero--editorial .pc-hero-eyebrow::before { background: var(--site-accent); }
+.pc-hero--editorial .pc-hero-title {
+  color: var(--pc-ink);
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  text-align: center;
+  max-width: 1100px;
+}
+.pc-hero--editorial .pc-hero-title em {
+  font-family: var(--pc-font-serif);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--site-accent);
+}
+.pc-hero--editorial .pc-hero-tagline {
+  color: var(--pc-ink-soft);
+  font-size: 22px;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 680px;
+  margin-top: 32px;
+  margin-bottom: 40px;
+}
+.pc-hero--editorial .pc-hero-actions { justify-content: center; }
+.pc-hero--editorial .pc-btn-primary {
+  background: var(--pc-ink); color: var(--pc-paper);
+  border-color: var(--pc-ink);
+  box-shadow: 4px 4px 0 0 var(--site-accent);
+}
+.pc-hero--editorial .pc-btn-primary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 0 var(--site-accent);
+}
+
+/* Below-the-fold strip on Variant B */
+.pc-edge-strip {
+  background: var(--pc-ink);
+  color: var(--pc-paper);
+  padding: 24px 32px;
+  display: flex; gap: 48px; align-items: center; justify-content: center;
+  flex-wrap: wrap;
+  font-family: var(--pc-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-top: 4px solid var(--site-accent);
+}
+.pc-edge-strip span { color: var(--pc-ash-light); }
+.pc-edge-strip strong { color: var(--pc-paper); font-weight: 600; }
+
+/* ============================================================
+   PRESS / SPEAKING STRIP (in footer area, both variants)
+   ============================================================ */
+.pc-press {
+  background: var(--pc-paper-dim);
+  padding: 56px 32px;
+  border-top: 1px solid var(--pc-line);
+  border-bottom: 1px solid var(--pc-line);
+}
+.pc-press-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.pc-press-label {
+  font-family: var(--pc-font-mono);
+  font-size: 11px; letter-spacing: 0.14em;
+  color: var(--pc-ash); text-transform: uppercase;
+}
+.pc-press-row {
+  display: flex; gap: 56px; flex-wrap: wrap; align-items: center;
+}
+.pc-press-mark {
+  font-family: var(--pc-font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--pc-ink);
+  letter-spacing: -0.01em;
+  opacity: 0.55;
+  transition: opacity 140ms var(--pc-ease);
+  cursor: default;
+}
+.pc-press-mark:hover { opacity: 1; }
+.pc-press-mark--bold {
+  font-family: var(--pc-font-sans);
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+.pc-press-mark--mono {
+  font-family: var(--pc-font-mono);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   FOOTER — Substack subscribe + recent essays
+   ============================================================ */
+.pc-foot-extras {
+  background: var(--pc-paper);
+  border-top: 1px solid var(--pc-line);
+  padding: 80px 32px;
+}
+.pc-foot-extras-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.pc-foot-subscribe { display: flex; flex-direction: column; gap: 16px; }
+.pc-foot-subscribe h3 {
+  font-family: var(--pc-font-sans);
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  color: var(--pc-ink);
+}
+.pc-foot-subscribe h3 .pc-dot { color: var(--site-accent); }
+.pc-foot-subscribe p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--pc-ink-soft);
+  max-width: 460px;
+}
+.pc-foot-form {
+  display: flex; gap: 0;
+  margin-top: 12px;
+  max-width: 480px;
+  border: 1.5px solid var(--pc-ink);
+  border-radius: var(--site-radius);
+  overflow: hidden;
+  box-shadow: 4px 4px 0 0 var(--site-accent);
+  transition: transform 140ms var(--pc-ease), box-shadow 140ms var(--pc-ease);
+}
+.pc-foot-form:focus-within { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 0 var(--site-accent); }
+.pc-foot-form input {
+  flex: 1;
+  font: 500 14px/1 var(--pc-font-sans);
+  padding: 14px 16px;
+  border: 0;
+  background: var(--pc-paper);
+  color: var(--pc-ink);
+  outline: none;
+}
+.pc-foot-form input::placeholder { color: var(--pc-ash); }
+.pc-foot-form button {
+  background: var(--pc-ink);
+  color: var(--pc-paper);
+  border: 0;
+  padding: 0 22px;
+  font: 600 14px/1 var(--pc-font-sans);
+  cursor: pointer;
+  letter-spacing: -0.005em;
+  transition: background 120ms var(--pc-ease);
+}
+.pc-foot-form button:hover { background: var(--site-accent); }
+.pc-foot-fineprint {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--pc-ash);
+  margin-top: 4px;
+}
+
+.pc-foot-essays { display: flex; flex-direction: column; gap: 0; }
+.pc-foot-essays-label {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--pc-ash);
+  text-transform: uppercase;
+  border-bottom: 4px solid var(--pc-ink);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.pc-foot-essays-label a {
+  font-size: 11px;
+  color: var(--site-accent);
+  letter-spacing: 0.08em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pc-foot-essay {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 20px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--pc-line);
+  cursor: pointer;
+  transition: padding 140ms var(--pc-ease);
+}
+.pc-foot-essay:hover { padding-left: 8px; }
+.pc-foot-essay:hover .pc-foot-essay-title { color: var(--site-accent); }
+.pc-foot-essay-num {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--pc-ash);
+}
+.pc-foot-essay-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--pc-ink);
+  transition: color 140ms var(--pc-ease);
+}
+.pc-foot-essay-date {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--pc-ash);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   JOI EASTER EGG — small cat photo in footer corner
+   ============================================================ */
+.pc-joi {
+  display: flex; align-items: center; gap: 14px;
+  padding-top: 32px;
+  margin-top: 32px;
+  border-top: 1px solid rgba(250,250,247,0.1);
+}
+.pc-joi-thumb {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a574 0%, #6b4423 60%, #2a1a0e 100%);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(250,250,247,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.pc-joi-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 8px 6px 12px 12px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%);
+}
+.pc-joi-text {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--pc-ash);
+  line-height: 1.5;
+}
+.pc-joi-text em {
+  font-family: var(--pc-font-serif);
+  font-style: italic;
+  color: var(--site-accent);
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 880px) {
+  .pc-foot-extras-inner { grid-template-columns: 1fr; gap: 56px; }
+  .pc-press-row { gap: 32px; }
+  .site-variant-bar button { padding: 10px 14px; font-size: 10px; }
+  .site-variant-bar .site-variant-label { display: none; }
+  .pc-edge-strip { gap: 24px; padding: 20px; font-size: 10px; }
+}
