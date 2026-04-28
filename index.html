@@ -1,148 +1,249 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carey Lening — Privacat Insights</title>
-<link rel="stylesheet" href="../colors_and_type.css">
-<link rel="stylesheet" href="../ui_kits/web/styles.css">
-<link rel="stylesheet" href="styles.css">
-<link rel="icon" href="../assets/favicon.svg">
-<style>
-  body.hide-joi .pc-joi { display: none; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carey Lening — Privacat Insights</title>
+  <meta name="description" content="Privacy, policy, and the tangle in between. Advisory, research, and writing by Carey Lening.">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="has-variant-bar">
+<body>
 
-<div id="root"></div>
-
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
-<!-- UI kit components -->
-<script type="text/babel" src="../ui_kits/web/Button.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/Nav.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/Hero.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/About.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/ServiceCard.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/Services.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/TopicTag.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/NewsletterCard.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/Newsletter.jsx"></script>
-<script type="text/babel" src="../ui_kits/web/Contact.jsx"></script>
-
-<!-- Site-specific additions -->
-<script type="text/babel" src="HeroEditorial.jsx"></script>
-<script type="text/babel" src="PressStrip.jsx"></script>
-<script type="text/babel" src="FootExtras.jsx"></script>
-<script type="text/babel" src="FooterFull.jsx"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel" src="site-tweaks.jsx"></script>
-
-<script type="text/babel">
-const SITE_TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "red",
-  "density": 1,
-  "radius": 4
-}/*EDITMODE-END*/;
-
-function VariantBar({ variant, onSelect }) {
-  return (
-    <div className="site-variant-bar">
-      <span className="site-variant-label">Variant —</span>
-      <button
-        className={variant === 'a' ? 'is-active' : ''}
-        onClick={() => onSelect('a')}
-      >A · Editorial dark</button>
-      <button
-        className={variant === 'b' ? 'is-active' : ''}
-        onClick={() => onSelect('b')}
-      >B · Masthead light</button>
+  <!-- NAV -->
+  <nav class="pc-nav">
+    <div class="pc-nav-inner">
+      <a href="#top" class="pc-nav-logo">Privacat<span class="pc-dot">.</span></a>
+      <div class="pc-nav-links">
+        <a href="#about" class="pc-nav-link">About</a>
+        <a href="#services" class="pc-nav-link">Services</a>
+        <a href="#writing" class="pc-nav-link">Writing</a>
+        <a href="#contact" class="pc-nav-link">Contact</a>
+      </div>
     </div>
-  );
-}
+  </nav>
 
-function App() {
-  const [variant, setVariant] = React.useState(() => (location.hash.slice(1) === 'b' ? 'b' : 'a'));
-  const [active, setActive] = React.useState('top');
-  const [toast, setToast] = React.useState(null);
+  <!-- HERO -->
+  <section class="pc-hero pc-hero--editorial" id="top">
+    <div class="pc-hero-inner">
+      <div class="pc-hero-masthead-rule">
+        <span>Vol. VII &middot; No. 04</span>
+        <span>Privacat Insights<span class="pc-dot">.</span></span>
+        <span>Utrecht &middot; Est. 2026</span>
+      </div>
+      <div class="pc-hero-eyebrow">CAREY LENING &middot; OPTIMISTIC CONTRARIAN</div>
+      <h1 class="pc-hero-title">
+        What happens<br>when systems<br>become <em>ungovernable</em>.
+      </h1>
+      <p class="pc-hero-tagline">
+        A (mostly) weekly newsletter on tech extensity, regulatory failure,
+        and the slow tangling of the systems we all depend on.
+      </p>
+      <div class="pc-hero-actions">
+        <a href="#writing" class="pc-btn pc-btn-primary">Read the latest &rarr;</a>
+        <a href="#about" class="pc-hero-scroll">&darr; Who's writing</a>
+      </div>
+    </div>
+    <div class="pc-edge-strip">
+      <span><strong>20 yrs</strong> in privacy law</span>
+      <span><strong>Ex-Palantir</strong> &middot; <strong>Ex-Meta</strong></span>
+      <span><strong>Based</strong> in Utrecht, NL</span>
+      <span><strong>Available</strong> for advisory work</span>
+    </div>
+  </section>
 
-  React.useEffect(() => {
-    const onHash = () => setVariant(location.hash.slice(1) === 'b' ? 'b' : 'a');
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
-  }, []);
+  <!-- ABOUT -->
+  <section class="pc-section pc-about" id="about">
+    <div class="pc-section-inner">
+      <span class="pc-eyebrow">&uarr; About</span>
+      <h2 class="pc-section-title">Two decades watching<br>the watchers<span class="pc-dot">.</span></h2>
+      <div class="pc-about-grid">
+        <div class="pc-about-text">
+          <p>
+            I'm a privacy researcher, investigative journalist, and policy advisor
+            who's spent 20 years at the intersection of surveillance technology,
+            AI governance, and digital rights.
+          </p>
+          <p>
+            I've worked inside the machine &mdash; at Palantir and Meta &mdash; and outside it,
+            investigating how these systems actually operate when nobody's looking.
+            Now I write about what I've found.
+          </p>
+          <p>
+            Based in Utrecht. Available for advisory work, research collaborations,
+            and speaking engagements.
+          </p>
+        </div>
+        <div class="pc-about-stats">
+          <div class="pc-stat">
+            <span class="pc-stat-num">20+</span>
+            <span class="pc-stat-label">Years in privacy &amp; tech policy</span>
+          </div>
+          <div class="pc-stat">
+            <span class="pc-stat-num">2</span>
+            <span class="pc-stat-label">Big Tech companies (from the inside)</span>
+          </div>
+          <div class="pc-stat">
+            <span class="pc-stat-num">NL</span>
+            <span class="pc-stat-label">Based in Utrecht, Netherlands</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  const selectVariant = (v) => {
-    location.hash = v;
-    setVariant(v);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
+  <!-- SERVICES -->
+  <section class="pc-section pc-services" id="services">
+    <div class="pc-section-inner">
+      <span class="pc-eyebrow">&uarr; Services</span>
+      <h2 class="pc-section-title">How I can help<span class="pc-dot">.</span></h2>
+      <div class="pc-services-grid">
+        <div class="pc-service">
+          <h3>Advisory &amp; Consulting</h3>
+          <p>Strategic guidance on privacy compliance, AI governance, and surveillance technology for organizations navigating regulatory complexity.</p>
+        </div>
+        <div class="pc-service">
+          <h3>Research &amp; Investigation</h3>
+          <p>Deep-dive research into surveillance tech, data practices, and policy gaps. OSINT, technical analysis, and investigative reporting.</p>
+        </div>
+        <div class="pc-service">
+          <h3>Writing &amp; Speaking</h3>
+          <p>Bylines, white papers, conference keynotes, and expert commentary on privacy, AI, and tech policy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  const flash = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2400);
-  };
+  <!-- WRITING / NEWSLETTER -->
+  <section class="pc-section pc-writing" id="writing">
+    <div class="pc-section-inner">
+      <span class="pc-eyebrow">&uarr; The Newsletter</span>
+      <h2 class="pc-section-title">Privacat Insights<span class="pc-dot">.</span></h2>
+      <p class="pc-writing-desc">
+        (Mostly) weekly. Free. No tracking, no clickbait &mdash; just whatever's caught my
+        attention in privacy, policy, and the tangle in between.
+      </p>
+      <div class="pc-writing-topics">
+        <span class="pc-topic-tag">Surveillance Tech</span>
+        <span class="pc-topic-tag">AI Governance</span>
+        <span class="pc-topic-tag">Privacy Law</span>
+        <span class="pc-topic-tag">Regulatory Failure</span>
+        <span class="pc-topic-tag">Digital Rights</span>
+        <span class="pc-topic-tag">Tech Policy</span>
+      </div>
+      <a href="https://insights.priva.cat" class="pc-btn pc-btn-primary" target="_blank" rel="noopener">
+        Read on Substack &rarr;
+      </a>
+    </div>
+  </section>
 
-  const navigate = (id) => {
-    setActive(id);
-    if (id === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    const el = document.getElementById(id);
-    if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
+  <!-- CONTACT -->
+  <section class="pc-section pc-contact" id="contact">
+    <div class="pc-section-inner">
+      <span class="pc-eyebrow">&uarr; Get in touch</span>
+      <h2 class="pc-section-title">Let's talk<span class="pc-dot">.</span></h2>
+      <p class="pc-contact-desc">
+        Advisory inquiries, research collaborations, speaking requests, or just
+        a good conversation about where all this is heading.
+      </p>
+      <div class="pc-contact-links">
+        <a href="mailto:carey@priva.cat" class="pc-contact-card">
+          <span class="pc-contact-label">Email</span>
+          <span class="pc-contact-value">carey@priva.cat</span>
+        </a>
+        <a href="https://www.linkedin.com/in/privacat/" class="pc-contact-card" target="_blank" rel="noopener">
+          <span class="pc-contact-label">LinkedIn</span>
+          <span class="pc-contact-value">in/privacat &nearr;</span>
+        </a>
+        <a href="https://bsky.app/profile/priva.cat" class="pc-contact-card" target="_blank" rel="noopener">
+          <span class="pc-contact-label">Bluesky</span>
+          <span class="pc-contact-value">@priva.cat &nearr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  React.useEffect(() => {
-    const ids = ['top', 'about', 'services', 'writing', 'contact'];
-    const onScroll = () => {
-      const scrollY = window.scrollY + 140;
-      let current = 'top';
-      for (const id of ids) {
-        const el = id === 'top' ? null : document.getElementById(id);
-        if (el && el.offsetTop <= scrollY) current = id;
-      }
-      setActive(current);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [variant]);
+  <!-- PRESS STRIP -->
+  <section class="pc-press">
+    <div class="pc-press-inner">
+      <span class="pc-press-label">Words / bylines &mdash;</span>
+      <div class="pc-press-row">
+        <span class="pc-press-mark pc-press-mark--bold">Techdirt</span>
+        <span class="pc-press-mark">LessWrong</span>
+        <span class="pc-press-mark pc-press-mark--mono">Privacat Insights</span>
+      </div>
+      <span class="pc-press-label" style="margin-top: 16px">Quoted in &mdash;</span>
+      <div class="pc-press-row">
+        <span class="pc-press-mark pc-press-mark--bold">Forbes</span>
+        <span class="pc-press-mark">Digiday</span>
+        <span class="pc-press-mark pc-press-mark--mono">Popular Science</span>
+        <span class="pc-press-mark">The Irish Independent</span>
+        <span class="pc-press-mark pc-press-mark--bold">CNET</span>
+        <span class="pc-press-mark pc-press-mark--mono">RTÉ</span>
+        <span class="pc-press-mark pc-press-mark--mono">TodayFM</span>
+      </div>
+    </div>
+  </section>
 
-  const copyEmail = () => {
-    if (navigator.clipboard) navigator.clipboard.writeText('carey@priva.cat').catch(() => {});
-    flash('Copied carey@priva.cat — drop a line.');
-  };
-  const subscribe = (email) => flash(email ? `Would subscribe ${email} via Substack.` : 'Opening Substack…');
-  const book = () => flash('Calendar would open here.');
-  const heroCTA = (target) => navigate(target || 'writing');
+  <!-- FOOTER SUBSCRIBE + ESSAYS -->
+  <section class="pc-foot-extras">
+    <div class="pc-foot-extras-inner">
+      <div class="pc-foot-subscribe">
+        <span class="pc-eyebrow">&rarr; The Newsletter</span>
+        <h3>Get it in your inbox<span class="pc-dot">.</span></h3>
+        <p>
+          (Mostly) weekly. Free. No tracking, no clickbait &mdash; just whatever's caught my
+          attention in privacy, policy, and the tangle in between.
+        </p>
+        <a href="https://insights.priva.cat" class="pc-btn pc-btn-primary" target="_blank" rel="noopener">
+          Subscribe on Substack &rarr;
+        </a>
+        <span class="pc-foot-fineprint">
+          VIA SUBSTACK &middot; UNSUBSCRIBE ANY TIME &middot; NO SPAM
+        </span>
+      </div>
+      <div class="pc-foot-essays">
+        <div class="pc-foot-essays-label">
+          <span>Latest dispatches</span>
+          <a href="https://insights.priva.cat" target="_blank" rel="noopener">All essays &nearr;</a>
+        </div>
+        <a class="pc-foot-essay" href="https://insights.priva.cat" target="_blank" rel="noopener">
+          <span class="pc-foot-essay-num">No. &mdash;</span>
+          <span class="pc-foot-essay-title">Latest essay headline goes here.</span>
+          <span class="pc-foot-essay-date">TBD</span>
+        </a>
+        <a class="pc-foot-essay" href="https://insights.priva.cat" target="_blank" rel="noopener">
+          <span class="pc-foot-essay-num">No. &mdash;</span>
+          <span class="pc-foot-essay-title">Second-most-recent essay headline.</span>
+          <span class="pc-foot-essay-date">TBD</span>
+        </a>
+        <a class="pc-foot-essay" href="https://insights.priva.cat" target="_blank" rel="noopener">
+          <span class="pc-foot-essay-num">No. &mdash;</span>
+          <span class="pc-foot-essay-title">Third-most-recent essay headline.</span>
+          <span class="pc-foot-essay-date">TBD</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  return (
-    <>
-      <VariantBar variant={variant} onSelect={selectVariant} />
-      <Nav active={active} onNavigate={navigate} />
-      {variant === 'b'
-        ? <HeroEditorial onCTA={heroCTA} />
-        : <Hero onCTA={heroCTA} />}
-      <About />
-      <Services />
-      <Newsletter onSubscribe={subscribe} />
-      <Contact onCopyEmail={copyEmail} onBook={book} />
-      <PressStrip />
-      <FootExtras onSubscribe={subscribe} />
-      <FooterFull />
-      <SiteTweaks />
-      <div className={`pc-toast ${toast ? 'is-shown' : ''}`}>{toast}</div>
-    </>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+  <!-- FOOTER -->
+  <footer class="pc-footer">
+    <div class="pc-footer-inner">
+      <div class="pc-footer-row">
+        <span class="pc-footer-mark">Privacat Insights<span class="pc-dot">.</span></span>
+        <ul class="pc-footer-links">
+          <li><a href="https://insights.priva.cat" target="_blank" rel="noopener">Newsletter &nearr;</a></li>
+          <li><a href="https://www.linkedin.com/in/privacat/" target="_blank" rel="noopener">LinkedIn &nearr;</a></li>
+          <li><a href="https://bsky.app/profile/priva.cat" target="_blank" rel="noopener">Bluesky &nearr;</a></li>
+          <li><a href="mailto:carey@priva.cat">Email</a></li>
+        </ul>
+      </div>
+      <div class="pc-footer-rule"></div>
+      <div class="pc-footer-bottom">
+        <span class="pc-footer-copy">&copy; 2026 Carey Lening &middot; Utrecht, NL</span>
+        <span class="pc-footer-meta">Built quietly. No analytics, no trackers, no nonsense.</span>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>

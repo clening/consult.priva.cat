@@ -1,133 +1,200 @@
 /* =============================================================
-   PRIVACAT INSIGHTS — Marketing Site
-   Layered on top of ../colors_and_type.css and ../ui_kits/web/styles.css
+   PRIVACAT INSIGHTS — Complete Static Stylesheet
+   Combines: colors_and_type.css + ui_kit styles + site styles
    ============================================================= */
 
-/* ---------- Tweakable surface ---------- */
+/* ---- FONTS ---- */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap');
+
 :root {
-  --site-accent: var(--pc-red);
+  /* Color */
+  --pc-white:        #ffffff;
+  --pc-paper:        #fafaf7;
+  --pc-paper-dim:    #f1f0eb;
+  --pc-ink:          #0a0a0a;
+  --pc-ink-soft:     #2a2a2a;
+  --pc-ash:          #6b6b6b;
+  --pc-ash-light:    #9a9a9a;
+  --pc-rule:         #1a1a1a;
+  --pc-line:         #d8d6cf;
+  --pc-blue:         #2a4a8c;
+  --pc-blue-deep:    #1a3060;
+  --pc-red:          #e3170a;
+  --pc-red-deep:     #b51209;
+  --pc-cream:        #f5e9d0;
+
+  /* Type */
+  --pc-font-sans:    'Inter Tight', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --pc-font-mono:    'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+  --pc-font-serif:   'Newsreader', Georgia, 'Times New Roman', serif;
+
+  /* Site accent */
+  --site-accent:      var(--pc-red);
   --site-accent-deep: var(--pc-red-deep);
-  --site-density: 1;
-  --site-radius: 4px;
+  --site-radius:      4px;
+
+  /* Motion */
+  --pc-ease: cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* Apply density to section padding */
-.pc-section { padding: calc(120px * var(--site-density)) 32px; }
-.pc-hero { padding: calc(160px * var(--site-density)) 32px calc(96px * var(--site-density)); }
+/* =============================================================
+   RESET + BASE
+   ============================================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* When tweak overrides accent, propagate to key uses */
-.pc-section-title .pc-dot,
-.pc-hero-title .pc-hero-dot,
-.pc-nav-logo .pc-dot,
-.pc-footer-mark .pc-dot { color: var(--site-accent); }
-.pc-eyebrow,
-.pc-eyebrow--red { color: var(--site-accent); }
-.pc-nav-link.is-active { color: var(--site-accent); border-bottom-color: var(--site-accent); }
-.pc-footer-links a:hover { color: var(--site-accent); }
+html { scroll-behavior: smooth; }
 
-/* Apply radius variable */
-.pc-btn,
-.pc-service,
-.pc-newsletter-card,
-.pc-topic-tag { border-radius: var(--site-radius); }
+body {
+  font-family: var(--pc-font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--pc-ink);
+  background: var(--pc-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-/* ============================================================
-   VARIANT SWITCHER (top-of-page chrome shown only in dev)
-   ============================================================ */
-.site-variant-bar {
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* =============================================================
+   NAV
+   ============================================================= */
+.pc-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 1000;
+  z-index: 100;
+  background: rgba(250,250,247,0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--pc-line);
+}
+.pc-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 64px;
   display: flex;
-  justify-content: center;
-  gap: 0;
-  background: var(--pc-ink);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding: 0;
+  align-items: center;
+  justify-content: space-between;
+}
+.pc-nav-logo {
+  font-family: var(--pc-font-sans);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--pc-ink);
+}
+.pc-nav-logo .pc-dot { color: var(--site-accent); }
+.pc-nav-links { display: flex; gap: 32px; }
+.pc-nav-link {
   font-family: var(--pc-font-mono);
-}
-.site-variant-bar button {
-  background: transparent;
-  border: 0;
-  border-right: 1px solid rgba(255,255,255,0.1);
-  color: var(--pc-ash-light);
-  font: 500 11px/1 var(--pc-font-mono);
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 12px 22px;
-  cursor: pointer;
-  transition: color 120ms var(--pc-ease), background 120ms var(--pc-ease);
-}
-.site-variant-bar button:first-child { border-left: 1px solid rgba(255,255,255,0.1); }
-.site-variant-bar button:hover { color: var(--pc-paper); }
-.site-variant-bar button.is-active {
-  color: var(--pc-paper);
-  background: var(--site-accent);
-}
-.site-variant-bar .site-variant-label {
   color: var(--pc-ash);
-  padding: 12px 22px;
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 120ms var(--pc-ease), border-color 120ms var(--pc-ease);
+}
+.pc-nav-link:hover {
+  color: var(--pc-ink);
+  border-bottom-color: var(--pc-ink);
 }
 
-/* Push everything down to clear the variant bar */
-body.has-variant-bar { padding-top: 36px; }
-body.has-variant-bar .pc-nav { top: 36px; }
+/* =============================================================
+   BUTTONS
+   ============================================================= */
+.pc-btn {
+  display: inline-block;
+  font-family: var(--pc-font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: 14px 28px;
+  border: 1.5px solid var(--pc-ink);
+  border-radius: var(--site-radius);
+  cursor: pointer;
+  transition: transform 140ms var(--pc-ease), box-shadow 140ms var(--pc-ease), background 120ms var(--pc-ease);
+}
+.pc-btn-primary {
+  background: var(--pc-ink);
+  color: var(--pc-paper);
+  box-shadow: 4px 4px 0 0 var(--site-accent);
+}
+.pc-btn-primary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 0 var(--site-accent);
+}
 
-/* ============================================================
-   VARIANT B — Editorial masthead hero
-   Bold, centered display type. Newspaper-front-page energy.
-   ============================================================ */
+/* =============================================================
+   HERO — Editorial masthead
+   ============================================================= */
+.pc-hero {
+  padding: 160px 32px 96px;
+}
 .pc-hero--editorial {
   background: var(--pc-paper);
   color: var(--pc-ink);
   min-height: auto;
-  padding-top: calc(140px * var(--site-density));
+  padding-top: 140px;
   padding-bottom: 0;
 }
 .pc-hero--editorial .pc-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
   text-align: center;
-  display: flex; flex-direction: column; align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.pc-hero--editorial .pc-hero-masthead-rule {
+.pc-hero-masthead-rule {
   width: 100%;
   border-top: 4px solid var(--pc-ink);
   border-bottom: 1px solid var(--pc-ink);
   padding: 8px 0;
   margin-bottom: 32px;
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-family: var(--pc-font-mono);
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--pc-ink-soft);
 }
-.pc-hero--editorial .pc-hero-masthead-rule span:nth-child(2) {
+.pc-hero-masthead-rule span:nth-child(2) {
   color: var(--site-accent);
   font-weight: 700;
 }
-.pc-hero--editorial .pc-hero-eyebrow {
-  justify-content: center;
+.pc-hero-eyebrow {
+  font-family: var(--pc-font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--site-accent);
   margin-bottom: 24px;
 }
-.pc-hero--editorial .pc-hero-eyebrow::before { background: var(--site-accent); }
-.pc-hero--editorial .pc-hero-title {
+.pc-hero-title {
+  font-family: var(--pc-font-sans);
   color: var(--pc-ink);
   font-size: clamp(56px, 11vw, 168px);
+  font-weight: 900;
   line-height: 0.88;
   letter-spacing: -0.045em;
   text-align: center;
   max-width: 1100px;
 }
-.pc-hero--editorial .pc-hero-title em {
+.pc-hero-title em {
   font-family: var(--pc-font-serif);
   font-style: italic;
   font-weight: 500;
   color: var(--site-accent);
 }
-.pc-hero--editorial .pc-hero-tagline {
+.pc-hero-tagline {
   color: var(--pc-ink-soft);
   font-size: 22px;
   line-height: 1.5;
@@ -136,23 +203,30 @@ body.has-variant-bar .pc-nav { top: 36px; }
   margin-top: 32px;
   margin-bottom: 40px;
 }
-.pc-hero--editorial .pc-hero-actions { justify-content: center; }
-.pc-hero--editorial .pc-btn-primary {
-  background: var(--pc-ink); color: var(--pc-paper);
-  border-color: var(--pc-ink);
-  box-shadow: 4px 4px 0 0 var(--site-accent);
+.pc-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: center;
 }
-.pc-hero--editorial .pc-btn-primary:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 5px 5px 0 0 var(--site-accent);
+.pc-hero-scroll {
+  font-family: var(--pc-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--pc-ash);
+  transition: color 120ms var(--pc-ease);
 }
+.pc-hero-scroll:hover { color: var(--pc-ink); }
 
-/* Below-the-fold strip on Variant B */
+/* Edge strip */
 .pc-edge-strip {
   background: var(--pc-ink);
   color: var(--pc-paper);
   padding: 24px 32px;
-  display: flex; gap: 48px; align-items: center; justify-content: center;
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   font-family: var(--pc-font-mono);
   font-size: 12px;
@@ -163,9 +237,213 @@ body.has-variant-bar .pc-nav { top: 36px; }
 .pc-edge-strip span { color: var(--pc-ash-light); }
 .pc-edge-strip strong { color: var(--pc-paper); font-weight: 600; }
 
-/* ============================================================
-   PRESS / SPEAKING STRIP (in footer area, both variants)
-   ============================================================ */
+/* =============================================================
+   SECTIONS (shared)
+   ============================================================= */
+.pc-section {
+  padding: 120px 32px;
+}
+.pc-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.pc-section-title {
+  font-family: var(--pc-font-sans);
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--pc-ink);
+  margin-top: 16px;
+  margin-bottom: 48px;
+}
+.pc-section-title .pc-dot { color: var(--site-accent); }
+.pc-eyebrow {
+  font-family: var(--pc-font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--site-accent);
+}
+
+/* =============================================================
+   ABOUT
+   ============================================================= */
+.pc-about { background: var(--pc-paper-dim); }
+.pc-about-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.pc-about-text p {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--pc-ink-soft);
+  margin-bottom: 20px;
+}
+.pc-about-text p:last-child { margin-bottom: 0; }
+.pc-about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 4px solid var(--pc-ink);
+}
+.pc-stat {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--pc-line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pc-stat-num {
+  font-family: var(--pc-font-sans);
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--pc-ink);
+}
+.pc-stat-label {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pc-ash);
+}
+
+/* =============================================================
+   SERVICES
+   ============================================================= */
+.pc-services { background: var(--pc-paper); }
+.pc-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.pc-service {
+  background: var(--pc-paper-dim);
+  border: 1px solid var(--pc-line);
+  border-radius: var(--site-radius);
+  padding: 40px 32px;
+  transition: transform 140ms var(--pc-ease), box-shadow 140ms var(--pc-ease);
+}
+.pc-service:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 0 var(--site-accent);
+}
+.pc-service h3 {
+  font-family: var(--pc-font-sans);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--pc-ink);
+  margin-bottom: 16px;
+}
+.pc-service p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--pc-ink-soft);
+}
+
+/* =============================================================
+   WRITING / NEWSLETTER
+   ============================================================= */
+.pc-writing {
+  background: var(--pc-ink);
+  color: var(--pc-paper);
+}
+.pc-writing .pc-eyebrow { color: var(--site-accent); }
+.pc-writing .pc-section-title { color: var(--pc-paper); }
+.pc-writing .pc-section-title .pc-dot { color: var(--site-accent); }
+.pc-writing-desc {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--pc-ash-light);
+  max-width: 680px;
+  margin-bottom: 32px;
+}
+.pc-writing-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+.pc-topic-tag {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid rgba(250,250,247,0.2);
+  border-radius: var(--site-radius);
+  color: var(--pc-ash-light);
+  transition: border-color 120ms var(--pc-ease), color 120ms var(--pc-ease);
+}
+.pc-topic-tag:hover {
+  border-color: var(--site-accent);
+  color: var(--pc-paper);
+}
+.pc-writing .pc-btn-primary {
+  background: var(--pc-paper);
+  color: var(--pc-ink);
+  border-color: var(--pc-paper);
+  box-shadow: 4px 4px 0 0 var(--site-accent);
+}
+.pc-writing .pc-btn-primary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 0 var(--site-accent);
+}
+
+/* =============================================================
+   CONTACT
+   ============================================================= */
+.pc-contact { background: var(--pc-paper); }
+.pc-contact-desc {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--pc-ink-soft);
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+.pc-contact-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.pc-contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border: 1.5px solid var(--pc-ink);
+  border-radius: var(--site-radius);
+  box-shadow: 4px 4px 0 0 var(--pc-line);
+  transition: transform 140ms var(--pc-ease), box-shadow 140ms var(--pc-ease);
+}
+.pc-contact-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--site-accent);
+}
+.pc-contact-label {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pc-ash);
+}
+.pc-contact-value {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--pc-ink);
+}
+
+/* =============================================================
+   PRESS STRIP
+   ============================================================= */
 .pc-press {
   background: var(--pc-paper-dim);
   padding: 56px 32px;
@@ -173,16 +451,24 @@ body.has-variant-bar .pc-nav { top: 36px; }
   border-bottom: 1px solid var(--pc-line);
 }
 .pc-press-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; flex-direction: column; gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 .pc-press-label {
   font-family: var(--pc-font-mono);
-  font-size: 11px; letter-spacing: 0.14em;
-  color: var(--pc-ash); text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--pc-ash);
+  text-transform: uppercase;
 }
 .pc-press-row {
-  display: flex; gap: 56px; flex-wrap: wrap; align-items: center;
+  display: flex;
+  gap: 56px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .pc-press-mark {
   font-family: var(--pc-font-serif);
@@ -213,22 +499,27 @@ body.has-variant-bar .pc-nav { top: 36px; }
   letter-spacing: 0.04em;
 }
 
-/* ============================================================
-   FOOTER — Substack subscribe + recent essays
-   ============================================================ */
+/* =============================================================
+   FOOTER — Subscribe + Latest Essays
+   ============================================================= */
 .pc-foot-extras {
   background: var(--pc-paper);
   border-top: 1px solid var(--pc-line);
   padding: 80px 32px;
 }
 .pc-foot-extras-inner {
-  max-width: 1200px; margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 80px;
   align-items: start;
 }
-.pc-foot-subscribe { display: flex; flex-direction: column; gap: 16px; }
+.pc-foot-subscribe {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 .pc-foot-subscribe h3 {
   font-family: var(--pc-font-sans);
   font-size: 36px;
@@ -244,38 +535,7 @@ body.has-variant-bar .pc-nav { top: 36px; }
   color: var(--pc-ink-soft);
   max-width: 460px;
 }
-.pc-foot-form {
-  display: flex; gap: 0;
-  margin-top: 12px;
-  max-width: 480px;
-  border: 1.5px solid var(--pc-ink);
-  border-radius: var(--site-radius);
-  overflow: hidden;
-  box-shadow: 4px 4px 0 0 var(--site-accent);
-  transition: transform 140ms var(--pc-ease), box-shadow 140ms var(--pc-ease);
-}
-.pc-foot-form:focus-within { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 0 var(--site-accent); }
-.pc-foot-form input {
-  flex: 1;
-  font: 500 14px/1 var(--pc-font-sans);
-  padding: 14px 16px;
-  border: 0;
-  background: var(--pc-paper);
-  color: var(--pc-ink);
-  outline: none;
-}
-.pc-foot-form input::placeholder { color: var(--pc-ash); }
-.pc-foot-form button {
-  background: var(--pc-ink);
-  color: var(--pc-paper);
-  border: 0;
-  padding: 0 22px;
-  font: 600 14px/1 var(--pc-font-sans);
-  cursor: pointer;
-  letter-spacing: -0.005em;
-  transition: background 120ms var(--pc-ease);
-}
-.pc-foot-form button:hover { background: var(--site-accent); }
+.pc-foot-subscribe .pc-btn-primary { align-self: flex-start; }
 .pc-foot-fineprint {
   font-family: var(--pc-font-mono);
   font-size: 11px;
@@ -283,8 +543,11 @@ body.has-variant-bar .pc-nav { top: 36px; }
   color: var(--pc-ash);
   margin-top: 4px;
 }
-
-.pc-foot-essays { display: flex; flex-direction: column; gap: 0; }
+.pc-foot-essays {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 .pc-foot-essays-label {
   font-family: var(--pc-font-mono);
   font-size: 11px;
@@ -294,7 +557,9 @@ body.has-variant-bar .pc-nav { top: 36px; }
   border-bottom: 4px solid var(--pc-ink);
   padding-bottom: 12px;
   margin-bottom: 8px;
-  display: flex; justify-content: space-between; align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 .pc-foot-essays-label a {
   font-size: 11px;
@@ -310,7 +575,7 @@ body.has-variant-bar .pc-nav { top: 36px; }
   align-items: baseline;
   padding: 20px 0;
   border-bottom: 1px solid var(--pc-line);
-  cursor: pointer;
+  text-decoration: none;
   transition: padding 140ms var(--pc-ease);
 }
 .pc-foot-essay:hover { padding-left: 8px; }
@@ -337,52 +602,107 @@ body.has-variant-bar .pc-nav { top: 36px; }
   white-space: nowrap;
 }
 
-/* ============================================================
-   JOI EASTER EGG — small cat photo in footer corner
-   ============================================================ */
-.pc-joi {
-  display: flex; align-items: center; gap: 14px;
-  padding-top: 32px;
-  margin-top: 32px;
-  border-top: 1px solid rgba(250,250,247,0.1);
+/* =============================================================
+   FOOTER
+   ============================================================= */
+.pc-footer {
+  background: var(--pc-ink);
+  color: var(--pc-paper);
+  padding: 48px 32px;
 }
-.pc-joi-thumb {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c9a574 0%, #6b4423 60%, #2a1a0e 100%);
-  flex-shrink: 0;
-  box-shadow: 0 0 0 1px rgba(250,250,247,0.15);
-  position: relative;
-  overflow: hidden;
+.pc-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.pc-joi-thumb::after {
-  content: '';
-  position: absolute;
-  inset: 8px 6px 12px 12px;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%);
+.pc-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.pc-joi-text {
+.pc-footer-mark {
+  font-family: var(--pc-font-sans);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.pc-footer-mark .pc-dot { color: var(--site-accent); }
+.pc-footer-links {
+  display: flex;
+  gap: 28px;
+}
+.pc-footer-links a {
+  font-family: var(--pc-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--pc-ash-light);
+  transition: color 120ms var(--pc-ease);
+}
+.pc-footer-links a:hover { color: var(--site-accent); }
+.pc-footer-rule {
+  height: 1px;
+  background: rgba(250,250,247,0.1);
+  margin: 32px 0;
+}
+.pc-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.pc-footer-copy {
   font-family: var(--pc-font-mono);
   font-size: 11px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--pc-ash);
-  line-height: 1.5;
 }
-.pc-joi-text em {
-  font-family: var(--pc-font-serif);
-  font-style: italic;
-  color: var(--site-accent);
-  font-size: 13px;
-  letter-spacing: 0;
+.pc-footer-meta {
+  font-family: var(--pc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--pc-ash);
 }
 
-/* ============================================================
+/* =============================================================
    RESPONSIVE
-   ============================================================ */
+   ============================================================= */
 @media (max-width: 880px) {
-  .pc-foot-extras-inner { grid-template-columns: 1fr; gap: 56px; }
+  .pc-nav-inner { padding: 0 20px; }
+  .pc-nav-links { gap: 20px; }
+
+  .pc-hero--editorial { padding-top: 100px; }
+  .pc-hero-masthead-rule { font-size: 9px; }
+  .pc-hero-tagline { font-size: 18px; }
+
+  .pc-section { padding: 80px 20px; }
+
+  .pc-about-grid { grid-template-columns: 1fr; gap: 48px; }
+
+  .pc-services-grid { grid-template-columns: 1fr; gap: 20px; }
+
+  .pc-contact-links { grid-template-columns: 1fr; }
+
+  .pc-press { padding: 40px 20px; }
   .pc-press-row { gap: 32px; }
-  .site-variant-bar button { padding: 10px 14px; font-size: 10px; }
-  .site-variant-bar .site-variant-label { display: none; }
+
+  .pc-foot-extras { padding: 56px 20px; }
+  .pc-foot-extras-inner { grid-template-columns: 1fr; gap: 56px; }
+
   .pc-edge-strip { gap: 24px; padding: 20px; font-size: 10px; }
+
+  .pc-footer { padding: 32px 20px; }
+  .pc-footer-row { flex-direction: column; gap: 20px; align-items: flex-start; }
+  .pc-footer-links { flex-wrap: wrap; gap: 16px; }
+  .pc-footer-bottom { flex-direction: column; gap: 8px; }
+}
+
+@media (max-width: 520px) {
+  .pc-nav-links { gap: 14px; }
+  .pc-nav-link { font-size: 10px; }
+
+  .pc-hero-actions { flex-direction: column; gap: 16px; }
+  .pc-hero-masthead-rule span:first-child,
+  .pc-hero-masthead-rule span:last-child { display: none; }
+
+  .pc-foot-essay { grid-template-columns: 1fr; gap: 4px; }
+  .pc-foot-essay-num { display: none; }
+  .pc-foot-essay-date { display: none; }
 }
