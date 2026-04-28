@@ -157,7 +157,7 @@ ul { list-style: none; }
   padding: 8px 0;
   margin-bottom: 32px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-family: var(--pc-font-mono);
   font-size: 11px;
@@ -170,21 +170,21 @@ ul { list-style: none; }
   font-weight: 700;
 }
 .pc-hero-eyebrow {
-  font-family: var(--pc-font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-family: var(--pc-font-sans);
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--site-accent);
+  color: var(--pc-ink);
   margin-bottom: 24px;
 }
 .pc-hero-title {
   font-family: var(--pc-font-sans);
   color: var(--pc-ink);
-  font-size: clamp(56px, 11vw, 168px);
+  font-size: clamp(40px, 8vw, 96px);
   font-weight: 900;
-  line-height: 0.88;
-  letter-spacing: -0.045em;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
   text-align: center;
   max-width: 1100px;
 }
@@ -268,6 +268,23 @@ ul { list-style: none; }
 }
 
 /* =============================================================
+   PULLQUOTE
+   ============================================================= */
+.pc-pullquote {
+  font-family: var(--pc-font-serif);
+  font-style: italic;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.4;
+  color: var(--pc-ink);
+  letter-spacing: -0.01em;
+  max-width: 900px;
+  margin: 16px 0 48px;
+  padding-left: 24px;
+  border-left: 4px solid var(--site-accent);
+}
+.pc-pullquote .pc-dot { color: var(--site-accent); }
+
+/* =============================================================
    ABOUT
    ============================================================= */
 .pc-about { background: var(--pc-paper-dim); }
@@ -313,9 +330,15 @@ ul { list-style: none; }
 }
 
 /* =============================================================
+   TECH EXTENSITY
+   ============================================================= */
+.pc-extensity { background: var(--pc-paper); }
+.pc-extensity .pc-about-text { max-width: 800px; }
+
+/* =============================================================
    SERVICES
    ============================================================= */
-.pc-services { background: var(--pc-paper); }
+.pc-services { background: var(--pc-paper-dim); }
 .pc-services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
