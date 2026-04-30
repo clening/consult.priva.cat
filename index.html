@@ -264,7 +264,7 @@
       var container = document.getElementById('latest-dispatches');
       if (!container) return;
 
-      fetch('https://insights.priva.cat/feed')
+      fetch('https://rss-proxy.carey-lening.workers.dev/')
         .then(function (r) { return r.text(); })
         .then(function (xml) {
           var doc = new DOMParser().parseFromString(xml, 'text/xml');
