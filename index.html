@@ -225,25 +225,14 @@
           VIA SUBSTACK &middot; UNSUBSCRIBE ANY TIME &middot; NO SPAM
         </span>
       </div>
-      <div class="pc-foot-essays">
+      <div class="pc-foot-essays" id="latest-dispatches">
         <div class="pc-foot-essays-label">
           <span>Latest dispatches</span>
           <a href="https://insights.priva.cat" target="_blank" rel="noopener">All essays &nearr;</a>
         </div>
-        <a class="pc-foot-essay" href="https://insights.priva.cat" target="_blank" rel="noopener">
-          <span class="pc-foot-essay-num">No. &mdash;</span>
-          <span class="pc-foot-essay-title">Latest essay headline goes here.</span>
-          <span class="pc-foot-essay-date">TBD</span>
-        </a>
-        <a class="pc-foot-essay" href="https://insights.priva.cat" target="_blank" rel="noopener">
-          <span class="pc-foot-essay-num">No. &mdash;</span>
-          <span class="pc-foot-essay-title">Second-most-recent essay headline.</span>
-          <span class="pc-foot-essay-date">TBD</span>
-        </a>
-        <a class="pc-foot-essay" href="https://insights.priva.cat" target="_blank" rel="noopener">
-          <span class="pc-foot-essay-num">No. &mdash;</span>
-          <span class="pc-foot-essay-title">Third-most-recent essay headline.</span>
-          <span class="pc-foot-essay-date">TBD</span>
+        <!-- Populated by script; fallback if JS fails -->
+        <a class="pc-foot-essay pc-foot-essay--fallback" href="https://insights.priva.cat" target="_blank" rel="noopener">
+          <span class="pc-foot-essay-title">Read the latest on Substack &rarr;</span>
         </a>
       </div>
     </div>
@@ -268,6 +257,40 @@
       </div>
     </div>
   </footer>
+
+  <!-- Latest dispatches from Substack RSS -->
+  <script>
+    (function () {
+      var API = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Finsights.priva.cat%2Ffeed&count=3';
+      var container = document.getElementById('latest-dispatches');
+      if (!container) return;
+
+      fetch(API)
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (!data.items || !data.items.length) return;
+          // Remove fallback link
+          var fallback = container.querySelector('.pc-foot-essay--fallback');
+          if (fallback) fallback.remove();
+          // Insert essays
+          data.items.forEach(function (item, i) {
+            var date = new Date(item.pubDate);
+            var dateStr = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            var a = document.createElement('a');
+            a.className = 'pc-foot-essay';
+            a.href = item.link;
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.innerHTML =
+              '<span class="pc-foot-essay-num">No. ' + (i + 1) + '</span>' +
+              '<span class="pc-foot-essay-title">' + item.title + '</span>' +
+              '<span class="pc-foot-essay-date">' + dateStr + '</span>';
+            container.appendChild(a);
+          });
+        })
+        .catch(function () { /* fallback link stays visible */ });
+    })();
+  </script>
 
 </body>
 </html>
