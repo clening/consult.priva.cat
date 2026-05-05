@@ -261,7 +261,7 @@
       var container = document.getElementById('latest-dispatches');
       if (!container) return;
 
-      fetch('/feed-proxy')
+      fetch('/feed-proxy?v=2')
         .then(function (r) { return r.text(); })
         .then(function (xml) {
           var doc = new DOMParser().parseFromString(xml, 'text/xml');
