@@ -39,6 +39,16 @@ export default {
     }
 
     // Everything else: serve static files.
-    return env.ASSETS.fetch(request);
+    // Wrap in try/catch so a missing asset (e.g. anything excluded by
+    // .assetsignore) returns a clean 404 instead of bubbling up as a
+    // Worker exception (Cloudflare error 1101).
+    try {
+      return await env.ASSETS.fetch(request);
+    } catch (err) {
+      return new Response('Not Found', {
+        status: 404,
+        headers: { 'Content-Type': 'text/plain', 'Cache-Control': 'no-store' },
+      });
+    }
   },
 };

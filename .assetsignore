@@ -1,0 +1,37 @@
+# Files in this list are excluded from Cloudflare Workers static asset upload.
+# Wrangler's default behaviour uploads EVERYTHING in the assets directory
+# (including dotfiles), so anything sensitive or non-public must be listed here.
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Wrangler / Cloudflare dev artifacts
+.wrangler
+wrangler.jsonc
+wrangler.toml
+worker.js
+
+# Local env / secrets
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode
+.idea
+
+# Repo metadata
+README.md
+DESIGN.md
+CLAUDE.md
+LICENSE
+node_modules
+package.json
+package-lock.json
